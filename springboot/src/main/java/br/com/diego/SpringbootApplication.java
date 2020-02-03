@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.diego.domain.Categoria;
 import br.com.diego.domain.Cidade;
+import br.com.diego.domain.Cliente;
+import br.com.diego.domain.Endereco;
 import br.com.diego.domain.Estado;
 import br.com.diego.domain.Produto;
+import br.com.diego.domain.enums.TipoCliente;
 import br.com.diego.repositories.CategoriaRepository;
 import br.com.diego.repositories.CidadeRepository;
+import br.com.diego.repositories.ClienteRepository;
+import br.com.diego.repositories.EnderecoRepository;
 import br.com.diego.repositories.EstadoRepository;
 import br.com.diego.repositories.ProdutoRepository;
 
@@ -26,10 +31,16 @@ public class SpringbootApplication implements CommandLineRunner{
 	private ProdutoRepository produtoRepository;
 	
 	@Autowired
-	private CidadeRepository estadoRepository;
+	private CidadeRepository cidadeRepository;
 	
 	@Autowired
-	private EstadoRepository cidadeRepository;
+	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootApplication.class, args);
@@ -66,16 +77,26 @@ public class SpringbootApplication implements CommandLineRunner{
 		Cidade c2 = new Cidade(null, "São Paulo", est2);
 		Cidade c3 = new Cidade(null, "Campinas", est1);
 		
-		
 		est1.getCidades().addAll(Arrays.asList(c1));
 		est2.getCidades().addAll(Arrays.asList(c2, c3));
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6));
+
+		estadoRepository.saveAll(Arrays.asList(est1, est2));
+		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
-		//estadoRepository.saveAll(Arrays.asList(est1, est2));
-		//cidadeRepository.save(Arrays.asList(c1, c2, c3));
+		Cliente cli1 = new Cliente(null, "Diego", "diegoesilveira@gmail.com", "0123456789", TipoCliente.PESSOAFISICA);
 		
+		cli1.getTelefones().addAll(Arrays.asList("05133643101", "05133445566"));
+		
+		Endereco e1 = new Endereco(null, "Rua Jose Huberto Bronca", "60", "Apto 300", "Sarandi", "91120010", cli1, c1);
+		Endereco e2 = new Endereco(null, "Rua João", "20", "", "São João", "91120010", cli1, c1);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 		
 		
 	}
