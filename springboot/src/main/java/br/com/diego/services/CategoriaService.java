@@ -13,10 +13,10 @@ import br.com.diego.services.exceptions.ObjectNotFoundException;
 public class CategoriaService {
 
 	@Autowired
-	private CategoriaRepository repo;
+	private CategoriaRepository repository;
 	
 	public Categoria buscar(Integer id) {
-		Optional <Categoria> obj = repo.findById(id);
+		Optional <Categoria> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 		

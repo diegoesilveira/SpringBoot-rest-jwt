@@ -13,10 +13,10 @@ import br.com.diego.services.exceptions.ObjectNotFoundException;
 public class ClienteService {
 
 	@Autowired
-	private ClienteRepository repo;
+	private ClienteRepository repository;
 	
 	public Cliente buscar(Integer id) {
-		Optional <Cliente> obj = repo.findById(id);
+		Optional <Cliente> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 		
