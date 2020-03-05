@@ -27,6 +27,7 @@ public class PagamentoComBoleto extends Pagamento {
 	}
 
 	public void setDataVencimento(Date dataVencimento) {
+		
 		this.dataVencimento = dataVencimento;
 	}
 
